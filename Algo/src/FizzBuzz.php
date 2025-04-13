@@ -26,7 +26,7 @@ class FizzBuzz
             return 'FizzBuzz';
         }
         if ($this->isFizz($number)) {
-            return 'Buzz';
+            return 'Fizz';
         }
 
         if ($this->isBuzz($number)) {
