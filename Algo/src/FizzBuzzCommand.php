@@ -41,7 +41,7 @@ class FizzBuzzCommand
             $fizzBuzz->run();
         } catch (\InvalidArgumentsException $exception) {
             echo "Erreur : " . $exception->getMessage() . PHP_EOL;
-            echo "Veuillez réessayer avec deux entiers ex : php fizzbuzz.php 1 100" . PHP_EOL;
+            echo "Veuillez réessayer avec deux entiers ex : php bin/fizzbuzz.php 1 100" . PHP_EOL;
         }
     }
 }
