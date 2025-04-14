@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Fulll\Application\Command;
 
-use Fulll\Infra\FleetRepositoryInterface;
+use Fulll\Domain\Repository\FleetRepositoryInterface;
 use Fulll\Domain\Location;
 use Exception;
 

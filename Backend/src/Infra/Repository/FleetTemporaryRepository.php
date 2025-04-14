@@ -6,6 +6,7 @@ namespace Fulll\Infra;
 
 use Exception;
 use Fulll\Domain\Fleet;
+use Fulll\Domain\Repository\FleetRepositoryInterface;
 
 class FleetTemporaryRepository implements FleetRepositoryInterface
 {

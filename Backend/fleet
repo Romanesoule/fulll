@@ -1,0 +1,13 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Fulll\Domain\Fleet;
+use Fulll\Infra\FleetTemporaryRepository;
+use Fulll\Application\Command\CreateFleetCommand;
+use Fulll\Application\Command\RegisterVehicleCommand;
+use Fulll\Application\Command\ParkVehicleCommand;
+
+$repository = new FleetTemporaryRepository();

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fulll\Application\Command;
 
 use Exception;
-use Fulll\Infra\FleetRepositoryInterface;
+use Fulll\Domain\Repository\FleetRepositoryInterface;
 
 class RegisterVehicleCommand
 {
