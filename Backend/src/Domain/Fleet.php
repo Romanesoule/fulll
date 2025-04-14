@@ -15,9 +15,9 @@ class Fleet
      */
     private array $vehicles = [];
 
-    public function __construct(string $id, string $userId)
+    public function __construct(string $userId)
     {
-        $this->id = "fleet_$id";
+        $this->id = "fleet_$userId";
         $this->userId = $userId;
     }
 

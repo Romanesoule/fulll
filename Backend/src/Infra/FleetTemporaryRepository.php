@@ -12,9 +12,15 @@ class FleetTemporaryRepository implements FleetRepositoryInterface
 
     private array $fleets = [];
 
+    /**
+     * @throws Exception
+     */
     public function getFleet(string $fleetId): ?Fleet
     {
-        return $this->fleets[$fleetId] ?? null;
+        if (!$this->isFleetAlreadyRegistered($fleetId)) {
+            throw new Exception("this fleet $fleetId is not registered");
+        }
+        return $this->fleets[$fleetId];
     }
 
     /**
