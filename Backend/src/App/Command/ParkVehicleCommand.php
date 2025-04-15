@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Fulll\Application\Command;
+namespace Fulll\App\Command;
 
 use Fulll\Domain\Repository\FleetRepositoryInterface;
 use Fulll\Domain\Location;

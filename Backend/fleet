@@ -1,13 +1,39 @@
 #!/usr/bin/env php
-
 <?php
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-use Fulll\Domain\Fleet;
-use Fulll\Infra\FleetTemporaryRepository;
-use Fulll\Application\Command\CreateFleetCommand;
-use Fulll\Application\Command\RegisterVehicleCommand;
-use Fulll\Application\Command\ParkVehicleCommand;
+use Fulll\Infra\Repository\FleetTemporaryRepository;
+use Fulll\Infra\CLI\CommandHandler;
+use Fulll\Infra\CLI\FleetArgumentValidator;
 
 $repository = new FleetTemporaryRepository();
+
+//$args = $argv;
+//array_shift($args);
+//
+//try {
+//    $command = FleetArgumentValidator::getCommand($args);
+//    FleetArgumentValidator::checkIsSupported($command);
+//    CommandHandler::handle($command, $args, $repository);
+//} catch (Exception $e) {
+//    echo $e->getMessage() . PHP_EOL;
+//    exit(1);
+//}
+
+while (true) {
+    echo "\n> ";
+    $line = trim(fgets(STDIN));
+
+    if ($line === 'exit') { break; }
+
+    $args = explode(' ', $line);
+    $command = $args[0] ?? null;
+
+    try {
+        FleetArgumentValidator::checkIsSupported($command);
+        CommandHandler::handle($command, $args, $repository);
+    } catch (Exception $e) {
+        echo $e->getMessage() . PHP_EOL;
+    }
+}
