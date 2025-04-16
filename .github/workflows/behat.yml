@@ -24,7 +24,7 @@ jobs:
         run: cd Backend
 
       - name: Install Composer dependencies
-        run: composer install --no-progress --no-suggest --prefer-dist
+        run: composer install
 
       - name: Create build directory
         run: mkdir -p build/logs
