@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Fulll\App\Command;
 
-use Fulll\Domain\Fleet;
-use Fulll\Domain\Repository\FleetRepositoryInterface;
+use Fulll\Domain\Fleet\Fleet;
+use Fulll\Domain\Fleet\FleetRepositoryInterface;
+use Exception;
 
 class CreateFleetCommand
 {
@@ -16,10 +17,18 @@ class CreateFleetCommand
         $this->fleetRepository = $fleetRepository;
     }
 
+    /**
+     * @throws Exception
+     */
     public function execute(string $userId): string
     {
         $fleet = new Fleet($userId);
-        $this->fleetRepository->createFleet($fleet);
+
+        if ($this->fleetRepository->exists($fleet->getId())) {
+            throw new Exception("fleet already exists");
+        }
+
+        $this->fleetRepository->create($fleet);
         return $fleet->getId();
     }
 }

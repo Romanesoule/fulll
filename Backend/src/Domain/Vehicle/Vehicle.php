@@ -2,14 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Fulll\Domain;
+namespace Fulll\Domain\Vehicle;
 
+use Fulll\Domain\Location\Location;
 use Exception;
 
 class Vehicle
 {
     private string $plateNumber;
     private ?Location $location = null;
+    private ?int $id = null;
 
     public function __construct(string $plateNumber)
     {
@@ -19,6 +21,16 @@ class Vehicle
     public function getPlateNumber(): string
     {
         return $this->plateNumber;
+    }
+
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function setLocation(Location $location): void
@@ -37,9 +49,9 @@ class Vehicle
     public function park(Location $location): void
     {
 
-        if ($this->isParked() && $this->location->getCoordinates() === $location->getCoordinates()) {
-            throw new Exception('this vehicle is already parked at this location');
-        }
+//        if ($this->isParked() && $this->location->isEquals($location)) {
+//            throw new Exception('this vehicle is already parked at this location');
+//        }
 
         $this->setLocation($location);
     }

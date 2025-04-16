@@ -3,37 +3,31 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Fulll\Infra\Repository\FleetSqliteRepository;
 use Fulll\Infra\Repository\FleetTemporaryRepository;
 use Fulll\Infra\CLI\CommandHandler;
 use Fulll\Infra\CLI\FleetArgumentValidator;
+use Fulll\Infra\Repository\LocationSqliteRepository;
+use Fulll\Infra\Repository\VehicleSqliteRepository;
 
-$repository = new FleetTemporaryRepository();
+//$repository = new FleetTemporaryRepository();
 
-//$args = $argv;
-//array_shift($args);
-//
-//try {
-//    $command = FleetArgumentValidator::getCommand($args);
-//    FleetArgumentValidator::checkIsSupported($command);
-//    CommandHandler::handle($command, $args, $repository);
-//} catch (Exception $e) {
-//    echo $e->getMessage() . PHP_EOL;
-//    exit(1);
-//}
+$pdo = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+$pdo->exec('PRAGMA foreign_keys = ON;');
 
-while (true) {
-    echo "\n> ";
-    $line = trim(fgets(STDIN));
+$fleetRepository = new FleetSqliteRepository($pdo);
+$vehicleRepository = new VehicleSqliteRepository($pdo);
+$locationRepository = new LocationSqliteRepository($pdo);
 
-    if ($line === 'exit') { break; }
+$args = $argv;
+array_shift($args);
 
-    $args = explode(' ', $line);
-    $command = $args[0] ?? null;
-
-    try {
-        FleetArgumentValidator::checkIsSupported($command);
-        CommandHandler::handle($command, $args, $repository);
-    } catch (Exception $e) {
-        echo $e->getMessage() . PHP_EOL;
-    }
+try {
+    $command = FleetArgumentValidator::getCommand($args);
+    FleetArgumentValidator::checkIsSupported($command);
+    CommandHandler::handle($command, $args, $fleetRepository, $vehicleRepository, $locationRepository);
+} catch (Exception $e) {
+    echo $e->getMessage() . PHP_EOL;
+    exit(1);
 }
