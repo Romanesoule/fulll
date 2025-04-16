@@ -33,3 +33,11 @@ jobs:
         with:
           name: behat-junit-report
           path: Backend/build/logs/behat-junit.xml
+
+      - name: Display report
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+            name: Behat Tests
+            path: Backend/build/logs/behat-junit.xml
+            reporter: java-junit
