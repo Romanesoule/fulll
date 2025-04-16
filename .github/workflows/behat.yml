@@ -1,0 +1,39 @@
+name: Run Behat tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  behat-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          coverage: none
+
+      - name: Go to project directory
+        run: cd Backend
+
+      - name: Install Composer dependencies
+        run: composer install --no-progress --no-suggest --prefer-dist
+
+      - name: Create build directory
+        run: mkdir -p build/logs
+
+      - name: Run Behat tests (CI profile)
+        run: vendor/bin/behat --profile=ci
+
+      - name: Upload JUnit report
+        uses: actions/upload-artifact@v3
+        with:
+          name: behat-junit-report
+          path: build/logs/behat-junit.xml

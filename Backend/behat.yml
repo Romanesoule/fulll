@@ -9,3 +9,10 @@ default:
       paths: [ "%paths.base%/features/park_vehicle.feature" ]
       contexts:
         - Features\Bootstrap\ParkVehicleContext
+
+ci:
+  formatters:
+    pretty:
+      output_path: null
+    junit:
+      output_path: build/logs/behat-junit.xml
