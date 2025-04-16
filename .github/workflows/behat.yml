@@ -20,23 +20,16 @@ jobs:
           php-version: '8.2'
           coverage: none
 
-      - name: Go to project directory
-        run: cd Backend
-
-      - name: Display directory content
-        run: ls
-
       - name: Install Composer dependencies
         run: composer install
+        working-directory: Backend
 
-      - name: Create build directory
-        run: mkdir -p build/logs
-
-      - name: Run Behat tests (CI profile)
+      - name: Run Behat tests
         run: vendor/bin/behat --profile=ci
+        working-directory: Backend
 
       - name: Upload JUnit report
         uses: actions/upload-artifact@v4
         with:
           name: behat-junit-report
-          path: build/logs/behat-junit.xml
+          path: Backend/build/logs/behat-junit.xml
