@@ -32,11 +32,6 @@ class Location
         return $this->altitude;
     }
 
-    public function getCoordinates(): array
-    {
-        return [$this->latitude, $this->longitude, $this->alt];
-    }
-
     public function isEquals(Location $compared): bool
     {
         return (

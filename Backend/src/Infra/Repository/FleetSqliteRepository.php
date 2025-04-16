@@ -17,18 +17,6 @@ class FleetSqliteRepository implements FleetRepositoryInterface
         $this->pdo = $pdo;
     }
 
-    private function initializeSchema(): void
-    {
-        $schemaFile = __DIR__ . '/../Database/schema.sql';
-
-        if (!file_exists($schemaFile)) {
-            throw new \RuntimeException("Schema SQL file not found: $schemaFile");
-        }
-
-        $sql = file_get_contents($schemaFile);
-        $this->pdo->exec($sql);
-    }
-
     public function getById(string $fleetId): ?Fleet
     {
         $stmt = $this->pdo->prepare('SELECT id, user_id FROM fleets WHERE id = :id');

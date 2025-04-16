@@ -3,6 +3,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
+use Fulll\Infra\Database\DatabaseManager;
 use Fulll\Infra\Repository\FleetSqliteRepository;
 use Fulll\Infra\Repository\FleetTemporaryRepository;
 use Fulll\Infra\CLI\CommandHandler;
@@ -12,9 +13,8 @@ use Fulll\Infra\Repository\VehicleSqliteRepository;
 
 //$repository = new FleetTemporaryRepository();
 
-$pdo = new PDO('sqlite:' . __DIR__ . '/database.sqlite');
-$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-$pdo->exec('PRAGMA foreign_keys = ON;');
+$pdo = new PDO('sqlite:' . __DIR__ . '/Backend/database.sqlite');
+DatabaseManager::initialize($pdo);
 
 $fleetRepository = new FleetSqliteRepository($pdo);
 $vehicleRepository = new VehicleSqliteRepository($pdo);

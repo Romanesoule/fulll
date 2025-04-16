@@ -1,1 +1,4 @@
 vendor
+/database.sqlite
+/database_test.sqlite
+/composer.lock

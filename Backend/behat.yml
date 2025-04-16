@@ -1,0 +1,11 @@
+default:
+  suites:
+    register_suite:
+      paths: [ "%paths.base%/features/register_vehicle.feature" ]
+      contexts:
+        - Features\Bootstrap\RegisterVehicleContext
+
+    park_suite:
+      paths: [ "%paths.base%/features/park_vehicle.feature" ]
+      contexts:
+        - Features\Bootstrap\ParkVehicleContext
