@@ -30,11 +30,8 @@ class RegisterVehicleCommand
             throw new Exception("this fleet does not exists");
         }
 
-        if ($this->vehicleRepository->existsInFleet($plateNumber, $fleetId)) {
-            throw new Exception("this vehicle $plateNumber is already registered in this fleet");
-        }
-
         $fleet = $this->fleetRepository->getById($fleetId);
+
         $fleet->registerVehicle($plateNumber);
         $vehicle = new Vehicle($plateNumber);
         $this->vehicleRepository->save($vehicle, $fleetId);

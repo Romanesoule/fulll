@@ -21,7 +21,7 @@ composer install
 ./fleet register:vehicle {fleetId} {plateNumber}
 
 # Localiser un véhicule
-./fleet park:vehicle {fleetId} {plateNumber} {lat} {lng} {alt}
+./fleet park:vehicle {fleetId} {plateNumber} {lat} {lng} [alt]
 
 ```
 ---

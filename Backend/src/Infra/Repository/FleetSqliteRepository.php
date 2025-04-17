@@ -28,7 +28,17 @@ class FleetSqliteRepository implements FleetRepositoryInterface
             return null;
         }
 
-        return new Fleet($row['user_id']);
+        $fleet = new Fleet($row['user_id']);
+
+        $stmtVehicles = $this->pdo->prepare('SELECT plate_number FROM vehicles WHERE fleet_id = :fleet_id');
+        $stmtVehicles->execute(['fleet_id' => $fleetId]);
+        $vehicles = $stmtVehicles->fetchAll(PDO::FETCH_COLUMN);
+
+        foreach ($vehicles as $plateNumber) {
+            $fleet->registerVehicle($plateNumber);
+        }
+
+        return $fleet;
     }
 
     public function create(Fleet $fleet): void

@@ -33,19 +33,32 @@ class Fleet
         return $this->userId;
     }
 
+    /**
+     * @throws Exception
+     */
     public function registerVehicle(string $plateNumber): void
     {
+        if ($this->vehicleExists($plateNumber)) {
+            throw new \Exception("Vehicle $plateNumber is already registered in this fleet.");
+        }
+
         $this->vehicles[$plateNumber] = new Vehicle($plateNumber);
+    }
+
+    public function vehicleExists(string $plateNumber): bool
+    {
+        return isset($this->vehicles[$plateNumber]);
     }
 
     /**
      * @throws Exception
      */
-    public function getVehicle($plateNumber): Vehicle
+    public function getVehicle(string $plateNumber): Vehicle
     {
-        if (!isset($this->vehicles[$plateNumber])) {
+        if ($this->vehicleExists($plateNumber)) {
             throw new \Exception("Vehicle $plateNumber is not registered in this fleet.");
         }
+
         return $this->vehicles[$plateNumber];
     }
 }

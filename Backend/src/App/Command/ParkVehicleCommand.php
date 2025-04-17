@@ -33,16 +33,9 @@ class ParkVehicleCommand
 
         $vehicle = $this->vehicleRepository->getByPlateAndFleet($plateNumber, $fleetId);
         $vehicleId = $vehicle->getId();
-
-        $location = new Location($lat, $lng, $alt);
-
         $lastLocation = $this->locationRepository->getLatestForVehicle($vehicleId);
-
-        if ($lastLocation && $lastLocation->isEquals($location)) {
-            throw new Exception("this vehicle $plateNumber is already parked at this localisation");
-        }
-
-        $vehicle->park($location);
+        $location = new Location($lat, $lng, $alt);
+        $vehicle->park($location, $lastLocation);
         $locationId = $this->locationRepository->save($location);
         $this->locationRepository->assignToVehicle($vehicleId, $locationId);
     }

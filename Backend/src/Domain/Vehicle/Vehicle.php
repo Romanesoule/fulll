@@ -46,12 +46,12 @@ class Vehicle
     /**
      * @throws Exception
      */
-    public function park(Location $location): void
+    public function park(Location $location, ?Location $lastLocation): void
     {
 
-//        if ($this->isParked() && $this->location->isEquals($location)) {
-//            throw new Exception('this vehicle is already parked at this location');
-//        }
+        if ($lastLocation && $location->isEquals($lastLocation)) {
+            throw new Exception('this vehicle is already parked at this location');
+        }
 
         $this->setLocation($location);
     }
