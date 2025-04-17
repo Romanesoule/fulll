@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace Fulll\Domain\Fleet;
 
 use Fulll\Domain\Vehicle\Vehicle;
-use Exception;
+use Fulll\Domain\Exceptions\VehicleAlreadyRegisteredInFleet;
+use Fulll\Domain\Exceptions\VehicleNotRegisteredInFleet;
 
 class Fleet
 {
@@ -33,13 +34,14 @@ class Fleet
         return $this->userId;
     }
 
+
     /**
-     * @throws Exception
+     * @throws VehicleAlreadyRegisteredInFleet
      */
     public function registerVehicle(string $plateNumber): void
     {
         if ($this->vehicleExists($plateNumber)) {
-            throw new \Exception("Vehicle $plateNumber is already registered in this fleet.");
+            throw new VehicleAlreadyRegisteredInFleet("Vehicle $plateNumber is already registered in this fleet.");
         }
 
         $this->vehicles[$plateNumber] = new Vehicle($plateNumber);
@@ -50,13 +52,14 @@ class Fleet
         return isset($this->vehicles[$plateNumber]);
     }
 
+
     /**
-     * @throws Exception
+     * @throws VehicleNotRegisteredInFleet
      */
     public function getVehicle(string $plateNumber): Vehicle
     {
         if ($this->vehicleExists($plateNumber)) {
-            throw new \Exception("Vehicle $plateNumber is not registered in this fleet.");
+            throw new VehicleNotRegisteredInFleet("Vehicle $plateNumber is not registered in this fleet.");
         }
 
         return $this->vehicles[$plateNumber];

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Fulll\Domain\Vehicle;
 
 use Fulll\Domain\Location\Location;
-use Exception;
+use Fulll\Domain\Exceptions\VehicleAlreadyParkedException;
 
 class Vehicle
 {
@@ -43,14 +43,15 @@ class Vehicle
         return $this->location;
     }
 
+
     /**
-     * @throws Exception
+     * @throws VehicleAlreadyParkedException
      */
     public function park(Location $location, ?Location $lastLocation): void
     {
 
         if ($lastLocation && $location->isEquals($lastLocation)) {
-            throw new Exception('this vehicle is already parked at this location');
+            throw new VehicleAlreadyParkedException('this vehicle is already parked at this location');
         }
 
         $this->setLocation($location);
