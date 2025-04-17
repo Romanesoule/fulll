@@ -14,14 +14,9 @@ composer install
 ## Commandes CLI
 
 ```bash
-# Créer une flotte
-./fleet create:fleet {userId}
-
-# Enregistrer un véhicule
-./fleet register:vehicle {fleetId} {plateNumber}
-
-# Localiser un véhicule
-./fleet park:vehicle {fleetId} {plateNumber} {lat} {lng} [alt]
+./fleet create <userId> # returns fleetId on the standard output
+./fleet register-vehicle <fleetId> <vehiclePlateNumber>
+./fleet localize-vehicle <fleetId> <vehiclePlateNumber> lat lng [alt]
 
 ```
 ---
